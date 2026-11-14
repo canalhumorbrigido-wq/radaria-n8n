@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-11-14T00:00:54.098Z",
+  "updatedAt": "2026-11-14T00:48:43.530Z",
   "createdAt": "2026-11-13T23:48:32.475Z",
   "id": "ULTWScWx19HmfcGk",
   "name": "RadarIA | Telegram + GitHub + RAG | FINAL Conexiones y Layout",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -56,7 +56,13 @@
       ],
       "webhookId": "b872a7cb-d372-4ec1-8019-20635709fa69",
       "notes": "Entrada 1 (webhook de Telegram): canal donde el usuario ya está; no requiere app propia.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -130,7 +136,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Avisa al usuario por qué no se procesó su mensaje.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -173,7 +185,13 @@
         688
       ],
       "notes": "LLM en la nube: barato por consulta, buen tool calling. Temperatura 0,1 para respuestas estables.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ABoqCWAE6mYPceIO",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -215,7 +233,13 @@
         688
       ],
       "notes": "Herramienta RAG: Supabase pgvector, top 5 fragmentos. Única fuente factual del agente.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "0dN4k7bhKhRCSQnX",
+          "name": "Supabase account"
+        }
+      }
     },
     {
       "parameters": {
@@ -230,7 +254,13 @@
         928
       ],
       "notes": "Mismo modelo de embeddings que en la ingesta (requisito para comparar vectores).",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ABoqCWAE6mYPceIO",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -303,7 +333,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Salida real: respuesta fundamentada al usuario.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -361,7 +397,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Envía la pregunta de aclaración generada por el agente.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -419,7 +461,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Respuesta amable que explica qué sí puede hacer RadarIA.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {
@@ -446,7 +494,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Guarda contenido, metadata y embedding en pgvector (tabla documents).",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "0dN4k7bhKhRCSQnX",
+          "name": "Supabase account"
+        }
+      }
     },
     {
       "parameters": {
@@ -520,7 +574,13 @@
         1632
       ],
       "notes": "gemini-embedding-2, el mismo modelo que en la consulta.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ABoqCWAE6mYPceIO",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     },
     {
       "parameters": {
@@ -557,7 +617,13 @@
       ],
       "webhookId": "91f44ec0-8379-4536-a852-fe69b4317e86",
       "notes": "Entrada 2 (API de GitHub con token): cada push actualiza la base de conocimiento, versionada y auditable.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "githubApi": {
+          "id": "u7RfPbpoMch89Ts7",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -619,7 +685,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Descarga el archivo de la rama main vía API (JSON, no binario).",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "githubApi": {
+          "id": "u7RfPbpoMch89Ts7",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -638,7 +710,8 @@
     },
     {
       "parameters": {
-        "jsCode": "const validCategories=['ECONOMIA','INMOBILIARIO','IMPORTACIONES','MERCADOS','OTRO'];\nconst text=String($json.contenido??'').trim();\nconst category=validCategories.includes($json.categoria)?$json.categoria:'OTRO';\nconst valid=Boolean($json.activo && text.length>=40 && $json.id && $json.titulo);\nreturn [{json:{\n  valid,\n  text,\n  document_title:String($json.titulo),\n  category,\n  source:String($json.fuente),\n  document_id:String($json.id),\n  ingested_at:new Date().toISOString(),\n  fecha_actualizacion:$json.fecha_actualizacion,\n  github_sha:$json.github_sha,\n  github_path:$json.github_path,\n  validation_error:valid?null:'Documento inactivo, incompleto o contenido menor a 40 caracteres.'\n}}];"
+        "jsCode": "const validCategories=['ECONOMIA','INMOBILIARIO','IMPORTACIONES','MERCADOS','OTRO'];\nconst text=String($json.contenido??'').trim();\nconst category=validCategories.includes($json.categoria)?$json.categoria:'OTRO';\nconst valid=Boolean($json.activo && text.length>=40 && $json.id && $json.titulo);\nreturn {json:{\n  valid,\n  text,\n  document_title:String($json.titulo),\n  category,\n  source:String($json.fuente),\n  document_id:String($json.id),\n  ingested_at:new Date().toISOString(),\n  fecha_actualizacion:$json.fecha_actualizacion,\n  github_sha:$json.github_sha,\n  github_path:$json.github_path,\n  validation_error:valid?null:'Documento inactivo, incompleto o contenido menor a 40 caracteres.'\n}};",
+        "mode": "runOnceForEachItem"
       },
       "id": "c6967a4a-e397-409c-b8f4-e055e4e1b4fe",
       "name": "Validar documento GitHub",
@@ -689,7 +762,8 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{json:{status:'INGESTA_OK',document_id:$('Validar documento GitHub').item.json.document_id,title:$('Validar documento GitHub').item.json.document_title,source:'GITHUB',timestamp:new Date().toISOString()}}];"
+        "jsCode": "return {json:{status:'INGESTA_OK',document_id:$('Validar documento GitHub').item.json.document_id,title:$('Validar documento GitHub').item.json.document_title,source:'GITHUB',timestamp:new Date().toISOString()}};",
+        "mode": "runOnceForEachItem"
       },
       "id": "ff4661b0-e359-4779-9e58-07e9dc959b07",
       "name": "Auditar ingesta GitHub",
@@ -704,7 +778,8 @@
     },
     {
       "parameters": {
-        "jsCode": "return [{json:{status:'IGNORADO',document_id:$json.document_id,reason:$json.validation_error,timestamp:new Date().toISOString()}}];"
+        "jsCode": "return {json:{status:'IGNORADO',document_id:$json.document_id,reason:$json.validation_error,timestamp:new Date().toISOString()}};",
+        "mode": "runOnceForEachItem"
       },
       "id": "875db926-b9de-4483-bc3f-357af55cee2a",
       "name": "Ignorar documento inválido",
@@ -743,7 +818,13 @@
       "waitBetweenTries": 2000,
       "onError": "continueErrorOutput",
       "notes": "Human-in-the-loop: deja un Issue auditable. Si GitHub falla, sale por la rama de error.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "githubApi": {
+          "id": "u7RfPbpoMch89Ts7",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -766,7 +847,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Cierra el ciclo con el usuario: su caso quedó registrado.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "parameters": {},
@@ -821,7 +908,13 @@
       "maxTries": 3,
       "waitBetweenTries": 2000,
       "notes": "Convierte el error en un Issue para seguimiento.",
-      "notesInFlow": true
+      "notesInFlow": true,
+      "credentials": {
+        "githubApi": {
+          "id": "u7RfPbpoMch89Ts7",
+          "name": "GitHub account"
+        }
+      }
     },
     {
       "parameters": {
@@ -859,7 +952,13 @@
       },
       "notes": "Falla 3: GitHub no respondió; el usuario igual recibe aviso.",
       "notesInFlow": true,
-      "webhookId": "468cf770-6250-4ca2-b772-ce5cb1464eb9"
+      "webhookId": "468cf770-6250-4ca2-b772-ce5cb1464eb9",
+      "credentials": {
+        "telegramApi": {
+          "id": "cFyWdQXeDRcScrzA",
+          "name": "Telegram account"
+        }
+      }
     },
     {
       "id": "f8c299d3-f0b7-4e14-a5b6-dd40bc018f26",
@@ -1232,16 +1331,16 @@
   },
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate"
+    "binaryMode": "separate",
+    "errorWorkflow": "ULTWScWx19HmfcGk"
   },
-  "staticData": null,
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "1fd9122f-fa38-4e4c-8567-6ca2c6588818",
-  "activeVersionId": null,
-  "versionCounter": 2,
-  "triggerCount": 0,
+  "versionId": "e4db090a-f1f5-49fc-a5ec-3351e7a0940d",
+  "activeVersionId": "e4db090a-f1f5-49fc-a5ec-3351e7a0940d",
+  "versionCounter": 6,
+  "triggerCount": 2,
   "sourceWorkflowId": null,
   "tags": [],
   "shared": [
