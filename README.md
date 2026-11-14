@@ -196,3 +196,27 @@ Devuelve exclusivamente JSON válido con esta estructura, sin texto fuera del ob
 | ¿Cuál fue el IPC de Bolivia en 1985? | `DERIVAR` y GitHub Issue |
 | Recomiéndame una receta de pan | `FUERA_DE_ALCANCE` |
 | (un sticker) | Mensaje de error de entrada |
+
+---
+
+## 8. Evidencia
+
+**Canvas del flujo**
+
+![Canvas](capturas/canvas.png)
+
+**Ejecución exitosa en n8n**
+
+![Ejecución exitosa](capturas/ejecucion-exitosa.png)
+
+**Pruebas de aceptación en Telegram:** RESOLVER, PEDIR_ACLARACION, DERIVAR y FUERA_DE_ALCANCE
+
+![Pruebas en Telegram](capturas/telegram-pruebas.jpg)
+
+**Derivación humana:** GitHub Issue creado por el agente
+
+![GitHub Issue](capturas/github-issue.png)
+
+**Manejo de errores en producción:** el modelo no estaba disponible (404), el flujo derivó la consulta, creó el Issue y avisó al usuario igual
+
+![Manejo de errores](capturas/telegram-manejo-errores.jpg)
