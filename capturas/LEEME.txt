@@ -1,0 +1,1 @@
+Capturas: canvas.png, ejecucion-exitosa.png, telegram-*.png, github-issue.png

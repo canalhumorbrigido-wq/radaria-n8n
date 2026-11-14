@@ -1,0 +1,29 @@
+[
+  {
+    "id": "RAG-001",
+    "categoria": "ECONOMIA",
+    "titulo": "Prueba RAG Positiva Final",
+    "contenido": "Documento de prueba RAGPOSITIVO999. Para efectos de validación del agente, la tasa de referencia asociada al indicador RAGPOSITIVO999 es exactamente 7,77 por ciento, vigente desde el 1 de noviembre de 2026.",
+    "fuente": "Documento académico RAG",
+    "activo": true,
+    "fecha_actualizacion": "2026-11-13"
+  },
+  {
+    "id": "RAG-002",
+    "categoria": "IMPORTACIONES",
+    "titulo": "Nota de prueba: arancel ficticio RAGIMPORT555",
+    "contenido": "Documento de prueba RAGIMPORT555. El arancel ficticio aplicado a la categoría de prueba RAGIMPORT555 es 5,55 por ciento. Este dato solo existe para validar la recuperación del agente.",
+    "fuente": "Documento académico RAG",
+    "activo": true,
+    "fecha_actualizacion": "2026-11-13"
+  },
+  {
+    "id": "RAG-003",
+    "categoria": "OTRO",
+    "titulo": "Documento inactivo de prueba",
+    "contenido": "Este documento está marcado como inactivo y el flujo debe ignorarlo sin vectorizarlo en Supabase.",
+    "fuente": "Documento académico RAG",
+    "activo": false,
+    "fecha_actualizacion": "2026-11-13"
+  }
+]
