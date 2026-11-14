@@ -26,7 +26,7 @@ Un analista recibe preguntas del equipo («¿cuál es la tasa vigente?», «¿qu
 | Costo por hora del analista | CLP 15.000 |
 | Consultas que deriva el agente | 20 % |
 | Tiempo humano por consulta derivada | 15 min |
-| Costo de Gemini 2.5 Flash por consulta | ≈ USD 0,005 (≈ 6.000 tokens de entrada y 300 de salida, con hasta 2 llamadas al modelo) |
+| Costo de Gemini 3.5 Flash por consulta | ≈ USD 0,005 (≈ 6.000 tokens de entrada y 300 de salida, con hasta 2 llamadas al modelo) |
 | Construcción del flujo | ≈ 25 h (una sola vez) |
 
 ### Comparación mensual
@@ -56,7 +56,7 @@ Un analista recibe preguntas del equipo («¿cuál es la tasa vigente?», «¿qu
 
 ## 2. Elección del modelo: Gemini en la nube frente a Ollama local
 
-| Criterio | Gemini 2.5 Flash (nube) ✅ | Ollama local (p. ej. Llama 3.1 8B) |
+| Criterio | Gemini 3.5 Flash (nube) ✅ | Ollama local (p. ej. Llama 3.1 8B) |
 |---|---|---|
 | Costo con 170 consultas al mes | < USD 1 | USD 0 de API, pero el PC debe estar encendido 24/7 (energía y desgaste) |
 | Costo con 10 veces el volumen | ≈ USD 9 | Igual, pero la latencia sube en hardware de consumo |
@@ -94,7 +94,7 @@ El modelo es probabilístico, así que **n8n tiene la última palabra**: si la c
 
 ## 4. Arquitectura
 
-**Entrada 1: Telegram (webhook).** Telegram Trigger → normalización → IF de validez → AI Agent (Gemini 2.5 Flash, memoria de 10 mensajes por `chat_id`, herramienta Supabase con top 5 resultados, Structured Output Parser) → validación de la decisión → enrutamiento con IF → **salida a Telegram o a un GitHub Issue**.
+**Entrada 1: Telegram (webhook).** Telegram Trigger → normalización → IF de validez → AI Agent (Gemini 3.5 Flash, memoria de 10 mensajes por `chat_id`, herramienta Supabase con top 5 resultados, Structured Output Parser) → validación de la decisión → enrutamiento con IF → **salida a Telegram o a un GitHub Issue**.
 
 **Entrada 2: GitHub (API con token).** GitHub Trigger con evento push → IF que revisa si el push modificó `data/conocimiento.json` → descarga del archivo por la API → decodificación y validación de cada documento → Data Loader, Splitter y Gemini Embeddings → **Supabase insert**.
 

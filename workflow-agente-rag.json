@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14T00:48:43.530Z",
+  "updatedAt": "2026-11-14T01:02:32.550Z",
   "createdAt": "2026-11-13T23:48:32.475Z",
   "id": "ULTWScWx19HmfcGk",
   "name": "RadarIA | Telegram + GitHub + RAG | FINAL Conexiones y Layout",
@@ -9,7 +9,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "## RadarIA | Proyecto Final técnico\n\nAgente autónomo por **Telegram** con RAG, memoria por Chat ID, decisión estructurada y human-in-the-loop mediante GitHub Issues.\n\n**Fuente 1:** Telegram Trigger (consultas conversacionales).\n**Fuente 2:** GitHub Trigger Push (versionado de conocimiento).\n**RAG:** Gemini Embeddings + Supabase pgvector.\n**Cerebro:** Gemini 2.5 Flash.\n**Memoria:** Buffer Window por Telegram chat.id.\n**Tool:** Supabase Vector Store como fuente factual obligatoria.\n**Decisiones:** RESOLVER / PEDIR_ACLARACION / DERIVAR / FUERA_DE_ALCANCE.\n**Salidas:** Telegram + GitHub Issue para revisión humana.\n\n### Conexiones AI\n- Gemini 2.5 Flash → Chat Model\n- Memoria Chat ID → Memory\n- Supabase RadarIA → Tool\n- Gemini Embeddings Consulta → Supabase Embedding\n- Data Loader + Splitter + Embeddings Ingesta → Supabase Insert\n\nNo guardar tokens ni claves en GitHub. Configurar credenciales en n8n.",
+        "content": "## RadarIA | Proyecto Final técnico\n\nAgente autónomo por **Telegram** con RAG, memoria por Chat ID, decisión estructurada y human-in-the-loop mediante GitHub Issues.\n\n**Fuente 1:** Telegram Trigger (consultas conversacionales).\n**Fuente 2:** GitHub Trigger Push (versionado de conocimiento).\n**RAG:** Gemini Embeddings + Supabase pgvector.\n**Cerebro:** Gemini 3.5 Flash.\n**Memoria:** Buffer Window por Telegram chat.id.\n**Tool:** Supabase Vector Store como fuente factual obligatoria.\n**Decisiones:** RESOLVER / PEDIR_ACLARACION / DERIVAR / FUERA_DE_ALCANCE.\n**Salidas:** Telegram + GitHub Issue para revisión humana.\n\n### Conexiones AI\n- Gemini 3.5 Flash → Chat Model\n- Memoria Chat ID → Memory\n- Supabase RadarIA → Tool\n- Gemini Embeddings Consulta → Supabase Embedding\n- Data Loader + Splitter + Embeddings Ingesta → Supabase Insert\n\nNo guardar tokens ni claves en GitHub. Configurar credenciales en n8n.",
         "height": 460,
         "width": 650,
         "color": 5
@@ -174,17 +174,18 @@
           "maxOutputTokens": 2048,
           "temperature": 0.1,
           "topP": 0.8
-        }
+        },
+        "modelName": "models/gemini-3.5-flash"
       },
       "id": "8540f87d-9611-48ef-b606-be9eac66d328",
-      "name": "Gemini 2.5 Flash",
+      "name": "Gemini 3.5 Flash",
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
         880,
         688
       ],
-      "notes": "LLM en la nube: barato por consulta, buen tool calling. Temperatura 0,1 para respuestas estables.",
+      "notes": "LLM en la nube: barato por consulta y con buen tool calling. Temperatura 0,1 para respuestas estables.",
       "notesInFlow": true,
       "credentials": {
         "googlePalmApi": {
@@ -196,7 +197,8 @@
     {
       "parameters": {
         "sessionKey": "={{ $('Normalizar Telegram').item.json.session_id }}",
-        "contextWindowLength": 10
+        "contextWindowLength": 10,
+        "sessionIdType": "customKey"
       },
       "id": "e5addf5c-e2ca-4b77-a276-e7001016791b",
       "name": "Memoria - Chat ID",
@@ -799,8 +801,12 @@
         "title": "={{ '[DERIVACIÓN RAG] ' + $json.category + ' - ' + $json.username }}",
         "body": "={{ '## Consulta derivada por RadarIA\\n\\n**Timestamp:** ' + $json.processed_at + '\\n**Chat ID:** ' + $json.chat_id + '\\n**Usuario:** ' + $json.username + '\\n**Categoría:** ' + $json.category + '\\n**Confidence:** ' + $json.confidence + '\\n\\n### Consulta\\n' + $json.message + '\\n\\n### Motivo\\n' + $json.reason + '\\n\\n### Fuentes recuperadas\\n' + JSON.stringify($json.sources) + '\\n\\n**Estado:** Pendiente de revisión humana' }}",
         "labels": [
-          "human-review",
-          "rag-insufficient"
+          {
+            "label": "human-review"
+          },
+          {
+            "label": "rag-insufficient"
+          }
         ],
         "assignees": []
       },
@@ -890,8 +896,12 @@
         "title": "={{ '[ERROR n8n] ' + $json.workflow_name + ' - ' + $json.last_node }}",
         "body": "={{ '## Error técnico automático\\n\\n**Timestamp:** ' + $json.timestamp + '\\n**Execution ID:** ' + $json.execution_id + '\\n**Último nodo:** ' + $json.last_node + '\\n\\n### Mensaje\\n```\\n' + $json.error_message + '\\n```\\n\\n### Stack\\n```\\n' + $json.error_stack + '\\n```' }}",
         "labels": [
-          "bug",
-          "n8n-error"
+          {
+            "label": "bug"
+          },
+          {
+            "label": "n8n-error"
+          }
         ],
         "assignees": []
       },
@@ -1039,17 +1049,6 @@
           {
             "node": "Parsear y validar decisión",
             "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Gemini 2.5 Flash": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent - RadarIA",
-            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -1327,6 +1326,17 @@
           }
         ]
       ]
+    },
+    "Gemini 3.5 Flash": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent - RadarIA",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1337,9 +1347,9 @@
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "e4db090a-f1f5-49fc-a5ec-3351e7a0940d",
-  "activeVersionId": "e4db090a-f1f5-49fc-a5ec-3351e7a0940d",
-  "versionCounter": 6,
+  "versionId": "3b1c549b-fa60-4e8f-98b3-131845e9e80a",
+  "activeVersionId": "3b1c549b-fa60-4e8f-98b3-131845e9e80a",
+  "versionCounter": 8,
   "triggerCount": 2,
   "sourceWorkflowId": null,
   "tags": [],
