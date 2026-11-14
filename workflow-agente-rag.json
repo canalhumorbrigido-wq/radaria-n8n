@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-14T01:02:32.550Z",
+  "updatedAt": "2026-11-14T01:31:20.604Z",
   "createdAt": "2026-11-13T23:48:32.475Z",
   "id": "ULTWScWx19HmfcGk",
   "name": "RadarIA | Telegram + GitHub + RAG | FINAL Conexiones y Layout",
@@ -511,29 +511,29 @@
             "metadataValues": [
               {
                 "name": "document_title",
-                "value": "={{ $json.document_title }}"
+                "value": "={{ $('Validar documento GitHub').item.json.document_title }}"
               },
               {
                 "name": "category",
-                "value": "={{ $json.category }}"
+                "value": "={{ $('Validar documento GitHub').item.json.category }}"
               },
               {
                 "name": "source",
-                "value": "={{ $json.source }}"
+                "value": "={{ $('Validar documento GitHub').item.json.source }}"
               },
               {
                 "name": "document_id",
-                "value": "={{ $json.document_id }}"
+                "value": "={{ $('Validar documento GitHub').item.json.document_id }}"
               },
               {
                 "name": "ingested_at",
-                "value": "={{ $json.ingested_at }}"
+                "value": "={{ $('Validar documento GitHub').item.json.ingested_at }}"
               }
             ]
           }
         },
         "jsonMode": "expressionData",
-        "jsonData": "={{ $json.text }}",
+        "jsonData": "={{ $('Validar documento GitHub').item.json.text }}",
         "textSplittingMode": "custom"
       },
       "id": "890757e2-5f92-4846-8857-05483a6e9b38",
@@ -1000,6 +1000,35 @@
         "color": 3,
         "content": "## Manejo de errores (4 puntos)\n\n1. **Entrada inválida** → IF + mensaje al usuario.\n2. **Fallo de API Gemini / timeout de Supabase / respuesta vacía del modelo** → AI Agent reintenta 3 veces; si falla, continúa y *Parsear y validar decisión* fuerza **DERIVAR** (Issue + aviso).\n3. **GitHub no responde al crear el Issue** → rama de error → aviso por Telegram.\n4. **Cualquier otro error** (p. ej. conocimiento.json mal formado, Supabase caído en la ingesta) → **Error Trigger** → Issue técnico en GitHub."
       }
+    },
+    {
+      "id": "63d9770c-5b1a-496a-978a-6f075a1df172",
+      "name": "Supabase - Borrar versión anterior",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1664,
+        1200
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "continueRegularOutput",
+      "credentials": {
+        "supabaseApi": {
+          "id": "0dN4k7bhKhRCSQnX",
+          "name": "Supabase account"
+        }
+      },
+      "notes": "Idempotencia: borra los fragmentos previos del mismo document_id antes de reindexar, para que cada push no duplique documentos.",
+      "notesInFlow": true,
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://koopuvlfwidzakerldfw.supabase.co/rest/v1/documents?metadata->>document_id=eq.{{ encodeURIComponent($json.document_id) }}",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "supabaseApi",
+        "options": {}
+      }
     }
   ],
   "connections": {
@@ -1240,7 +1269,7 @@
       "main": [
         [
           {
-            "node": "Supabase Vector Store - Insertar",
+            "node": "Supabase - Borrar versión anterior",
             "type": "main",
             "index": 0
           }
@@ -1337,6 +1366,17 @@
           }
         ]
       ]
+    },
+    "Supabase - Borrar versión anterior": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store - Insertar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1347,9 +1387,9 @@
   "meta": null,
   "nodeGroups": [],
   "pinData": {},
-  "versionId": "3b1c549b-fa60-4e8f-98b3-131845e9e80a",
-  "activeVersionId": "3b1c549b-fa60-4e8f-98b3-131845e9e80a",
-  "versionCounter": 8,
+  "versionId": "5c4f396a-db4f-457a-910a-ca72793ebaee",
+  "activeVersionId": "5c4f396a-db4f-457a-910a-ca72793ebaee",
+  "versionCounter": 9,
   "triggerCount": 2,
   "sourceWorkflowId": null,
   "tags": [],
