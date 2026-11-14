@@ -18,7 +18,7 @@ RadarIA responde por **Telegram** consultas de inteligencia económica sobre Chi
 ### Proceso manual actual
 Un analista recibe preguntas del equipo («¿cuál es la tasa vigente?», «¿qué dice el último informe de importaciones?»). Para cada una busca en informes y planillas, verifica la cifra y redacta la respuesta.
 
-### Supuestos (estimaciones propias, para validar)
+### Supuestos (validados por el autor para un equipo pequeño de análisis económico)
 | Variable | Valor |
 |---|---|
 | Consultas por mes | 170 (≈ 40 por semana) |
@@ -72,6 +72,7 @@ Un analista recibe preguntas del equipo («¿cuál es la tasa vigente?», «¿qu
 ### Vector store y embeddings
 - **Supabase pgvector:** Postgres administrado, plan gratuito, nodo nativo en n8n, filtros por metadata (`metadata @> filter`) y la opción de agregar RLS en producción.
 - **`models/gemini-embedding-2` (3072 dimensiones):** se usa el **mismo** modelo en la ingesta y en la consulta, que es requisito para que la similitud tenga sentido.
+- **Idempotencia:** antes de reindexar, el flujo borra en Supabase (DELETE vía API REST con la misma credencial) los fragmentos del mismo `document_id`. Así, cada push actualiza los documentos en lugar de duplicarlos.
 - **Chunking:** Recursive Character Text Splitter con un solapamiento de 150 caracteres. Solo se vectoriza `$json.text`; título, fuente y fecha van como metadata. En la preentrega 4, vectorizar el JSON completo metía ruido en la búsqueda.
 
 ---
